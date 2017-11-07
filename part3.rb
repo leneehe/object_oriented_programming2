@@ -56,6 +56,14 @@ class Zombie
     end
   end
 
+  def speed
+    @speed
+  end
+
+  def strength
+    @strength
+  end
+
 #Class method
   def self.all
     return @@horde
@@ -84,6 +92,20 @@ class Zombie
     @@plague_level += rand(3)
   end
 
+  def self.deadliest_zombie
+    deadliest_one = nil
+    best_speed = 0
+    best_strength = 0
+    @@horde.each { |zombie|
+      if zombie.speed >= best_speed && zombie.strength >= best_strength
+        deadliest_one = zombie
+        best_speed = zombie.speed
+        best_strength = zombie.strength
+      end
+    }
+    return deadliest_one
+  end
+
 end
 
 puts Zombie.all.inspect # []
@@ -103,3 +125,5 @@ zombie3 = Zombie.all[2]
 puts zombie1.encounter # You got away
 puts zombie2.encounter # You are now a zombie
 puts zombie3.encounter # You died
+puts Zombie.all.inspect
+puts Zombie.deadliest_zombie.inspect
